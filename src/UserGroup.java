@@ -24,10 +24,10 @@ public class UserGroup implements CompositeUser {
 		return groupUsers;
 	}
 	
-	public void addUser(User user) {
-		groupUsers.add(user);
-		System.out.println(user + " added to " + groupID);
-	}
+//	public void addUser(User user) {
+//		groupUsers.add(user);
+//		System.out.println(user + " added to " + groupID);
+//	}
 	
 	@Override
 	public String toString() {
