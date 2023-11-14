@@ -4,17 +4,19 @@ import javax.swing.JList;
 public class User implements CompositeUser {
 	
 	private String userID; // User's username
-	private List<User> userFollowers; // List of the user's followers
-	private List<User> userFollowing; // List of who the user is following
-	private List<String> twitFeed; // User's Twitter feed
+	private ArrayList<User> userFollowers; // List of the user's followers
+	private ArrayList<User> userFollowing; // List of who the user is following
+	private List<String> userMessages; // User's messages
+	private Message twitFeed; // User's Twitter feed
 	
 	private JList feedList;
 	
 	public User(String id) {
 		this.userID = id;
-		this.userFollowers = new ArrayList<>();
-		this.userFollowing = new ArrayList<>();
-		this.twitFeed = new ArrayList<>();
+		this.userFollowers = new ArrayList<User>();
+		this.userFollowing = new ArrayList<User>();
+		this.userMessages = new ArrayList<String>();
+		this.twitFeed = new Message();
 	}
 	
 	@Override
@@ -35,10 +37,6 @@ public class User implements CompositeUser {
 		return userFollowing;
 	}
 	
-	public List<String> getTwitFeed() {
-		return twitFeed;
-	}
-	
 	public JList getFeedList() {
 		return this.feedList;
 	}
@@ -53,19 +51,50 @@ public class User implements CompositeUser {
 		System.out.println(follower + "is now following " + userID);
 	}
 	
+	// Gets a list of the user's followers
+	public ArrayList<User> getFollowers() {
+		return userFollowers;
+	}
+	
 	// Adds another user that the current user follows
-	public void addFollow(User follow) {
+	public void addFollowing(User follow) {
 		userFollowing.add(follow);
 		System.out.println(userID + "is now following " + follow);
 	}
 	
-	// Adds a new tweet to the Twitter feed
-	public void postTweet(String tweet) {
-		twitFeed.add(tweet);
-		for (User follower : userFollowers) {
-			follower.getTwitFeed().add(tweet);
-		}
+	// Gets a list of who the user is following
+	public ArrayList<User> getFollowing() {
+		return userFollowers;
 	}
+	
+	// Adds a new message for the user
+	public void addMessage(String message) {
+		userMessages.add(message);
+	}
+	
+	// Gets a message at given position
+	public String getMessage(int pos) {
+		return userMessages.get(pos);
+	}
+	
+	// Uses the OBVSERVER pattern to update user's followers
+	public void updateFollowers() {
+		for (int i = 0; i < userFollowers.size(); i++) {
+			userFollowers.get(i).updateFeed(userFollowers.get(i).getFeed());
+        }
+	}
+	
+	public JList getFeed() {
+		return this.feedList;
+	}
+	
+	public void setFeed(JList feed) {
+		feedList = feed;
+	}
+	
+	public void updateFeed(JList feed) {
+        this.twitFeed.printTweets(feed, userFollowing, this);
+    }
 	
 	@Override
 	public String toString() {

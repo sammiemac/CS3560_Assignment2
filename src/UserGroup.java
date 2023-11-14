@@ -1,14 +1,13 @@
 import java.util.*;
 
-
 public class UserGroup implements CompositeUser {
 	
-	private String groupID;
-	private List<User> groupUsers;
+	private String groupID; // Group's name
+	private ArrayList<CompositeUser> groupUsers; // List of group users
 	
 	public UserGroup(String id) {
 		this.groupID = id;
-		this.groupUsers = new ArrayList<>();
+		this.groupUsers = new ArrayList<CompositeUser>();
 	}
 	
 	@Override
@@ -21,7 +20,7 @@ public class UserGroup implements CompositeUser {
 		groupID = id;
 	}
 	
-	public List<User> getGroupUsers() {
+	public ArrayList<CompositeUser> getGroupUsers() {
 		return groupUsers;
 	}
 	
