@@ -20,14 +20,14 @@ public class UserGroup implements CompositeUser {
 		groupID = id;
 	}
 	
+	// Adds a user to a group
+	public void addUserToGroup(User userID) {
+        groupUsers.add(userID);
+    }
+	
 	public ArrayList<CompositeUser> getGroupUsers() {
 		return groupUsers;
 	}
-	
-//	public void addUser(User user) {
-//		groupUsers.add(user);
-//		System.out.println(user + " added to " + groupID);
-//	}
 	
 	@Override
 	public String toString() {

@@ -200,10 +200,7 @@ public class UserView {
             
             //Ideally updates the followers of the user
             user.updateFollowers();
-            
-            //Update last time updated
-            user.setLastTimeUpdated(System.currentTimeMillis());
-            lastUpdated.setText(Long.toString(user.getLastTimeUpdated()));
+
         }
     }//GEN-LAST:event_postTweetMouseClicked
 

@@ -161,19 +161,19 @@ public class AdminControlPanel extends javax.swing.JFrame {
         });
         TreeView.setViewportView(rootTree);
 
-        ValidateUser.setText("Validate IDs");
-        ValidateUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ValidateUserActionPerformed(evt);
-            }
-        });
-
-        RecentUser.setText("Recent User");
-        RecentUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RecentUserActionPerformed(evt);
-            }
-        });
+//        ValidateUser.setText("Validate IDs");
+//        ValidateUser.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                ValidateUserActionPerformed(evt);
+//            }
+//        });
+//
+//        RecentUser.setText("Recent User");
+//        RecentUser.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                RecentUserActionPerformed(evt);
+//            }
+//        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
