@@ -1,7 +1,8 @@
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 import javax.swing.JList;
 
-public class UserView {
+public class UserView extends JFrame{
 	
 	private User user;
     private DefaultListModel followModel = new DefaultListModel();
@@ -233,9 +234,7 @@ public class UserView {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //new UserView(new User("Larry")).setVisible(true);
-            }
+            public void run() { }
         });
     }
 
