@@ -5,9 +5,15 @@ public class UserGroup implements CompositeUser {
 	private String groupID; // Group's name
 	private ArrayList<CompositeUser> groupUsers; // List of group users
 	
-	public UserGroup(String id) {
+	// Assignment 3
+	private long timeCreated;
+	
+	public UserGroup(String id, long createTime) {
 		this.groupID = id;
 		this.groupUsers = new ArrayList<CompositeUser>();
+		
+		// Assignment 3
+		this.timeCreated = createTime;
 	}
 	
 	@Override
@@ -27,6 +33,11 @@ public class UserGroup implements CompositeUser {
 	
 	public ArrayList<CompositeUser> getGroupUsers() {
 		return groupUsers;
+	}
+	
+	// Assignment 3
+	public long getTimeCreated() {
+		return timeCreated;
 	}
 	
 	@Override

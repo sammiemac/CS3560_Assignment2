@@ -11,12 +11,20 @@ public class User implements CompositeUser {
 	
 	private JList feedList;
 	
-	public User(String id) {
+	// Assignment 3
+	private long timeCreated; // Time when user was created
+	private long lastTimeUpdated; // Time when user was last updated
+	
+	public User(String id, long createTime) {
 		this.userID = id;
 		this.userFollowers = new ArrayList<User>();
 		this.userFollowing = new ArrayList<User>();
 		this.userMessages = new ArrayList<String>();
 		this.twitFeed = new Message();
+		
+		// Assignment 3
+		this.timeCreated = createTime;
+		this.lastTimeUpdated = createTime;
 	}
 	
 	@Override
@@ -29,13 +37,13 @@ public class User implements CompositeUser {
 		userID = id;
 	}
 	
-	public List<User> getUserFollowers() {
-		return userFollowers;
-	}
-	
-	public List<User> getUserFollowing() {
-		return userFollowing;
-	}
+//	public List<User> getUserFollowers() {
+//		return userFollowers;
+//	}
+//	
+//	public List<User> getUserFollowing() {
+//		return userFollowing;
+//	}
 	
 	public JList getFeedList() {
 		return this.feedList;
@@ -45,14 +53,19 @@ public class User implements CompositeUser {
 		feedList = tweets;
 	}
 	
+	// Gets a list of the user's followers
+	public ArrayList<User> getFollowers() {
+		return userFollowers;
+	}
+	
 	// Adds a new follower for the user
 	public void addFollower(User follower) {
 		userFollowers.add(follower);
 		System.out.println(follower + "is now following " + userID);
 	}
 	
-	// Gets a list of the user's followers
-	public ArrayList<User> getFollowers() {
+	// Gets a list of who the user is following
+	public ArrayList<User> getFollowing() {
 		return userFollowers;
 	}
 	
@@ -60,11 +73,6 @@ public class User implements CompositeUser {
 	public void addFollowing(User follow) {
 		userFollowing.add(follow);
 		System.out.println(userID + "is now following " + follow);
-	}
-	
-	// Gets a list of who the user is following
-	public ArrayList<User> getFollowing() {
-		return userFollowers;
 	}
 	
 	// Adds a new message for the user
@@ -95,6 +103,23 @@ public class User implements CompositeUser {
 	public void updateFeed(JList feed) {
         this.twitFeed.printTweets(feed, userFollowing, this);
     }
+	
+	// Assignment 3
+	public long getTimeCreated() {
+		return timeCreated;
+	}
+	
+	public long getLastTimeUpdated() {
+		return lastTimeUpdated;
+	}
+	
+	public void setLastTimeUpdated(long updateTime) {
+		lastTimeUpdated = updateTime;
+	}
+	
+	public long getLastTimeUpdatedLong() {
+		return lastTimeUpdated;
+	}
 	
 	@Override
 	public String toString() {

@@ -22,7 +22,7 @@ public class AdminControlPanel extends javax.swing.JFrame {
 	}
 	
 	private AdminControlPanel() {
-		root = new UserGroup("Root");
+		root = new UserGroup("Root", System.currentTimeMillis()); // Added for Assignment 3
 		initComponents();
 		LoadTree();
 	}
@@ -41,6 +41,10 @@ public class AdminControlPanel extends javax.swing.JFrame {
     private GroupCount groupTotal = new GroupCount();
     private MessageCount messageTotal = new MessageCount();
     private PosMessageCount posPercentage = new PosMessageCount();
+    
+    // Added for Assignment 3
+    private ValidUserCheck invalidUser = new ValidUserCheck();
+    private MostRecentUser recentUser = new MostRecentUser();
     
     private void LoadTree() {
     	System.out.println("Loading tree");
@@ -160,6 +164,21 @@ public class AdminControlPanel extends javax.swing.JFrame {
             }
         });
         TreeView.setViewportView(rootTree);
+        
+        // Assignment 3
+        ValidateUser.setText("Validate IDs");
+        ValidateUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ValidateUserActionPerformed(evt);
+            }
+        });
+
+        RecentUser.setText("Recent User");
+        RecentUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RecentUserActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -259,10 +278,15 @@ public class AdminControlPanel extends javax.swing.JFrame {
         
         if (smd.getSelectionCount() > 0 && groupSelected != null) {
             System.out.println("Add User Button Pressed");
-            User newUser = new User(userID.getText());
+            User newUser = new User(userID.getText(), System.currentTimeMillis()); // Added for Assignment 3
             
             DefaultMutableTreeNode currNode = (DefaultMutableTreeNode) rootTree.getSelectionPath().getLastPathComponent();
             DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(newUser);
+            
+            // Assignment 3
+            if (listUser.containsKey(newUser.getID())) {
+                invalidUser.visitUser(newUser);
+            }
             
             currNode.add(newNode);
             groupSelected.addUserToGroup(newUser);
@@ -283,10 +307,15 @@ public class AdminControlPanel extends javax.swing.JFrame {
         
         if (smd.getSelectionCount() > 0 && groupSelected != null) {
             System.out.println("Add Group Button Pressed");
-            UserGroup newGroup = new UserGroup(groupID.getText());
+            UserGroup newGroup = new UserGroup(groupID.getText(), System.currentTimeMillis()); // Added for Assignment 3
             
             DefaultMutableTreeNode currNode = (DefaultMutableTreeNode) rootTree.getSelectionPath().getLastPathComponent();
             DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(newGroup);
+            
+            // Assignment 3
+            if (listGroup.containsKey(newGroup.getID())) {
+                invalidUser.visitGroup(newGroup);
+            }
             
             currNode.add(newNode);
             listGroup.put(newGroup.getID(), newGroup);
@@ -344,6 +373,27 @@ public class AdminControlPanel extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(frame, "Positive Message Percentage: " + posPercentage.getPosMessage() + "%");
         
     }//GEN-LAST:event_showPosPercentMouseEntered
+    
+    // Assignment 3
+    private void ValidateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ValidateUserActionPerformed
+        JFrame frame = new JFrame();
+        
+        JOptionPane.showMessageDialog(frame, "Invalid Users: " + invalidUser.getListOfUsers());
+    }//GEN-LAST:event_ValidateUserActionPerformed
+
+    private void RecentUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecentUserActionPerformed
+        JFrame frame = new JFrame();
+        long recentUserTime = 0;
+        
+        for (Map.Entry<String, User> currUser : listUser.entrySet()) {
+            if (currUser.getValue().getLastTimeUpdatedLong() >= recentUserTime) {
+                recentUserTime = currUser.getValue().getLastTimeUpdatedLong();
+                recentUser.visitUser(currUser.getValue());
+            }
+        }
+        
+        JOptionPane.showMessageDialog(frame, "Most Recent User: " + recentUser.getRecentUser());
+    }//GEN-LAST:event_RecentUserActionPerformed
 
     /**
      * @param args the command line arguments

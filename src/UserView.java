@@ -21,6 +21,12 @@ public class UserView extends JFrame{
         for (User u : user.getFollowing()) {
             followModel.addElement(u);
         }
+        
+        // Assignment 3
+        timeCreated.setText(Long.toString(user.getTimeCreated()));
+        lastUpdated.setText(Long.toString(user.getLastTimeUpdated()));
+        
+        this.setVisible(true);
     }
     
     public JList feed() {
@@ -168,15 +174,10 @@ public class UserView extends JFrame{
     }// </editor-fold>//GEN-END:initComponents
     
     private void followUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_followUserMouseClicked
-
-        // TODO add your handling code here:
-        //Probably pull from list to verify
-        if (userID != null)
-        {
+        if (userID != null) {
             String userValid = userID.getText();
             
-            if(user.getFollowing().indexOf(userValid) < 0 && AdminControlPanel.userExist(userValid))
-            {
+            if(user.getFollowing().indexOf(userValid) < 0 && AdminControlPanel.userExist(userValid)) {
                 User newUser = AdminControlPanel.getUser(userValid);
                 
                 followModel.addElement(newUser);
@@ -189,10 +190,7 @@ public class UserView extends JFrame{
 
     //Post Tweet Button
     private void postTweetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_postTweetMouseClicked
-        
-        // TODO add your handling code here:
-        if (tweetMessage != null)
-        {
+        if (tweetMessage != null) {
             String tweet = tweetMessage.getText();
             
             user.addMessage(tweet); //Adds tweet to user's message
